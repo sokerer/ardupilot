@@ -1448,6 +1448,8 @@ void GCS_MAVLINK::send_autopilot_version(uint8_t major_version, uint8_t minor_ve
 
 #if defined(PX4_GIT_VERSION)
     strncpy((char *)middleware_custom_version, PX4_GIT_VERSION, 8);
+#elif defined(VRBRAIN_GIT_VERSION)
+    strncpy((char *)middleware_custom_version, VRBRAIN_GIT_VERSION, 8);
 #else
     memset(middleware_custom_version,0,8);
 #endif
