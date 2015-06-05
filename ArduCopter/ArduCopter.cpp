@@ -77,6 +77,10 @@
 
 #define SCHED_TASK(func, rate_hz, max_time_micros) SCHED_TASK_CLASS(Copter, &copter, func, rate_hz, max_time_micros)
 
+#if CONFIG_HAL_BOARD == HAL_BOARD_VRBRAIN
+    uint8_t textId=0, g_severity;
+#endif
+
 /*
   scheduler table for fast CPUs - all regular tasks apart from the fast_loop()
   should be listed here, along with how often they should be called
