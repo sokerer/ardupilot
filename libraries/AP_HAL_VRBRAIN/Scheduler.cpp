@@ -222,7 +222,7 @@ void VRBRAINScheduler::resume_timer_procs()
 
 void VRBRAINScheduler::reboot(bool hold_in_bootloader)
 {
-	systemreset(hold_in_bootloader);
+	px4_systemreset(hold_in_bootloader);
 }
 
 void VRBRAINScheduler::_run_timers(bool called_from_timer_thread)
@@ -244,7 +244,7 @@ void VRBRAINScheduler::_run_timers(bool called_from_timer_thread)
     }
 
     // and the failsafe, if one is setup
-    if (_failsafe) {
+    if (_failsafe != NULL) {
         _failsafe();
     }
 
