@@ -17,8 +17,11 @@ githash=$(git rev-parse HEAD)
 hdate=$(date +"%Y-%m/%Y-%m-%d-%H:%m")
 mkdir -p binaries/$hdate
 binaries=$PWD/../buildlogs/binaries
+BASEDIR=$PWD
 
 error_count=0
+
+. config.mk
 
 # checkout the right version of the tree
 checkout() {
