@@ -40,7 +40,7 @@ checkout() {
 
     pushd ../../VRNuttX
     git remote update
-    git checkout -B "$vbranch" remotes/origin/"$vbranch" || git checkout -B for_merge remotes/origin/for_merge {
+    git checkout -B "$vbranch" remotes/origin/"$vbranch" || git checkout -B for_merge remotes/origin/for_merge || {
         popd
         return 1
     }
