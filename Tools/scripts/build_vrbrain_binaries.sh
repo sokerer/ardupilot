@@ -31,7 +31,7 @@ checkout() {
 	vbranch="$vehicle-$tag"
     fi
 
-    echo "Checkout for $vehicle with branch $branch"
+    echo "Checkout for $vehicle with branch $vbranch"
 
     git remote update
     git checkout -B "$vbranch" remotes/origin/"$vbranch" || return 1
