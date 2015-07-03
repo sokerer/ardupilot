@@ -20,8 +20,6 @@ binaries=$PWD/../buildlogs/binaries
 
 error_count=0
 
-. config.mk
-
 # checkout the right version of the tree
 checkout() {
     vehicle="$1"
