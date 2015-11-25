@@ -116,7 +116,7 @@ void AP_Frsky_VRBRAIN::send_frames (uint8_t control_mode, uint8_t simple_mode, i
         // check for sport bytes
         check_sport_input (control_mode, simple_mode, altitude, alt_mode, climbrate, throttle);
     } else {
-        uint32_t now = hal.scheduler->millis();
+        uint32_t now = AP_HAL::millis();
 
         // send frame1 every 200ms
         if (now - _last_frame1_ms > 200) {
