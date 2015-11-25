@@ -17,6 +17,7 @@
 #include "AnalogIn.h"
 #include "Util.h"
 #include "GPIO.h"
+#include "I2CDriver.h"
 
 #include <AP_HAL_Empty/AP_HAL_Empty.h>
 #include <AP_HAL_Empty/AP_HAL_Empty_Private.h>
@@ -32,11 +33,9 @@
 
 using namespace VRBRAIN;
 
-static Empty::Semaphore  i2cSemaphore;
-static Empty::I2CDriver  i2cDriver(&i2cSemaphore);
-static Empty::SPIDeviceManager spiDeviceManager;
-static Empty::OpticalFlow optflowDriver;
-//static Empty::GPIO gpioDriver;
+static VRBRAINI2CDriver i2cDriver;
+static Empty::EmptySPIDeviceManager spiDeviceManager;
+//static Empty::EmptyGPIO gpioDriver;
 
 static VRBRAINScheduler schedulerInstance;
 static VRBRAINStorage storageDriver;
@@ -111,8 +110,7 @@ HAL_VRBRAIN::HAL_VRBRAIN() :
         &rcinDriver,  /* rcinput */
         &rcoutDriver, /* rcoutput */
         &schedulerInstance, /* scheduler */
-        &utilInstance, /* util */
-        &optflowDriver) /* optflow */
+        &utilInstance) /* util */
 {}
 
 bool _vrbrain_thread_should_exit = false;        /**< Daemon exit flag */
@@ -144,21 +142,19 @@ static void loop_overtime(void *)
     vrbrain_ran_overtime = true;
 }
 
+static AP_HAL::HAL::Callbacks* g_callbacks;
+
 static int main_loop(int argc, char **argv)
 {
-    extern void setup(void);
-    extern void loop(void);
-
-
     hal.uartA->begin(115200);
     hal.uartB->begin(38400);
     hal.uartC->begin(57600);
     hal.uartD->begin(57600);
     hal.uartE->begin(57600);
-    hal.scheduler->init();
-    hal.rcin->init();
-    hal.rcout->init();
-    hal.analogin->init();
+    hal.scheduler->init(NULL);
+    hal.rcin->init(NULL);
+    hal.rcout->init(NULL);
+    hal.analogin->init(NULL);
     hal.gpio->init();
 
 
@@ -170,7 +166,7 @@ static int main_loop(int argc, char **argv)
 
     schedulerInstance.hal_initialized();
 
-    setup();
+    g_callbacks->setup();
     hal.scheduler->system_initialized();
 
     perf_counter_t perf_loop = perf_alloc(PC_ELAPSED, "APM_loop");
@@ -195,7 +191,7 @@ static int main_loop(int argc, char **argv)
          */
         hrt_call_after(&loop_overtime_call, 100000, (hrt_callout)loop_overtime, NULL);
 
-        loop();
+        g_callbacks->loop();
 
         if (vrbrain_ran_overtime) {
             /*
