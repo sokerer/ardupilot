@@ -14,6 +14,8 @@ namespace VRBRAIN {
         class VRBRAINGPIO;
         class VRBRAINDigitalSource;
         class NSHShellStream;
+        class VRBRAINI2CDriver;
+        class VRBRAIN_I2C;
 }
 
 #endif //__AP_HAL_VRBRAIN_NAMESPACE_H__
