@@ -16,6 +16,7 @@ namespace VRBRAIN {
         class NSHShellStream;
         class VRBRAINI2CDriver;
         class VRBRAIN_I2C;
+        class Semaphore;
 }
 
 #endif //__AP_HAL_VRBRAIN_NAMESPACE_H__

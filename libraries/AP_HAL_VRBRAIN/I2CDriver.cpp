@@ -39,7 +39,6 @@ bool VRBRAIN_I2C::do_transfer(uint8_t address, const uint8_t *send, uint32_t sen
     return transfer(send, send_len, recv, recv_len) == OK;
 }
 
-
 // constructor for main i2c class
 VRBRAINI2CDriver::VRBRAINI2CDriver(void)
 {
@@ -47,6 +46,14 @@ VRBRAINI2CDriver::VRBRAINI2CDriver(void)
     if (vrbrain_i2c == nullptr) {
         AP_HAL::panic("Unable to allocate VRBRAIN I2C driver");
     }
+}
+
+/*
+  expose transfer function
+ */
+bool VRBRAINI2CDriver::do_transfer(uint8_t address, const uint8_t *send, uint32_t send_len, uint8_t *recv, uint32_t recv_len)
+{
+    return vrbrain_i2c->do_transfer(address, send, send_len, recv, recv_len);
 }
 
 /* write: for i2c devices which do not obey register conventions */
