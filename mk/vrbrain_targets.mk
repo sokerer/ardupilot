@@ -65,6 +65,7 @@ VRBRAIN_VC10P_CONFIG_FILE=config_vrcore-v10P_APM.mk
 SKETCHFLAGS=$(SKETCHLIBINCLUDES) -DARDUPILOT_BUILD -DTESTS_MATHLIB_DISABLE -DCONFIG_HAL_BOARD=HAL_BOARD_VRBRAIN -DSKETCHNAME="\\\"$(SKETCH)\\\"" -DSKETCH_MAIN=ArduPilot_main -DAPM_BUILD_DIRECTORY=APM_BUILD_$(SKETCH)
 
 WARNFLAGS = -Werror -Wno-psabi -Wno-packed -Wno-error=double-promotion -Wno-error=unused-variable -Wno-error=reorder -Wno-error=float-equal -Wno-error=pmf-conversions -Wno-error=missing-declarations -Wno-error=unused-function
+OPTFLAGS = -fsingle-precision-constant
 
 
 
@@ -72,8 +73,8 @@ WARNFLAGS = -Werror -Wno-psabi -Wno-packed -Wno-error=double-promotion -Wno-erro
 PYTHONPATH=$(SKETCHBOOK)/mk/VRBRAIN/Tools/genmsg/src:$(SKETCHBOOK)/mk/VRBRAIN/Tools/gencpp/src
 export PYTHONPATH
 
-VRBRAIN_MAKE = $(v) ARDUPILOT_BUILD=1 make -C $(SKETCHBOOK) -f $(VRBRAIN_ROOT)/Makefile EXTRADEFINES="$(SKETCHFLAGS) $(WARNFLAGS) "'$(EXTRAFLAGS)' APM_MODULE_DIR=$(SKETCHBOOK) SKETCHBOOK=$(SKETCHBOOK) CCACHE=$(CCACHE) VRBRAIN_ROOT=$(VRBRAIN_ROOT) NUTTX_SRC=$(NUTTX_SRC) MAXOPTIMIZATION="-Os"
-VRBRAIN_MAKE_ARCHIVES = make -C $(VRBRAIN_ROOT) NUTTX_SRC=$(NUTTX_SRC) CCACHE=$(CCACHE) archives MAXOPTIMIZATION="-Os"
+VRBRAIN_MAKE = $(v) ARDUPILOT_BUILD=1 $(MAKE) -C $(SKETCHBOOK) -f $(VRBRAIN_ROOT)/Makefile.make EXTRADEFINES="$(SKETCHFLAGS) $(WARNFLAGS) $(OPTFLAGS) "'$(EXTRAFLAGS)' APM_MODULE_DIR=$(SKETCHBOOK) SKETCHBOOK=$(SKETCHBOOK) CCACHE=$(CCACHE) VRBRAIN_ROOT=$(VRBRAIN_ROOT) NUTTX_SRC=$(NUTTX_SRC) MAXOPTIMIZATION="-Os"
+VRBRAIN_MAKE_ARCHIVES = $(MAKE) -C $(VRBRAIN_ROOT) -f $(VRBRAIN_ROOT)/Makefile.make NUTTX_SRC=$(NUTTX_SRC) CCACHE=$(CCACHE) archives MAXOPTIMIZATION="-Os"
 
 HASHADDER_FLAGS += --ardupilot "$(SKETCHBOOK)"
 
@@ -316,8 +317,9 @@ vrbrain: vrbrainStd vrbrainStdP vrbrainPro vrbrainProP
 
 #vrbrain-clean: clean vrbrain-archives-clean
 vrbrain-clean: clean
-	$(v) /bin/rm -rf $(VRBRAIN_ROOT)/Build
-	$(v) /bin/rm -rf $(BUILD_ROOT)
+	$(v) /bin/rm -rf $(VRBRAIN_ROOT)/makefiles/build $(VRBRAIN_ROOT)/Build $(VRBRAIN_ROOT)/Images/*.vrx $(VRBRAIN_ROOT)/Images/*.bin $(VRBRAIN_ROOT)/Images/*.hex
+	$(v) /bin/rm -rf $(VRBRAIN_ROOT)/src/modules/uORB/topics $(VRBRAIN_ROOT)/src/platforms/nuttx/px4_messages $(VRBRAIN_ROOT)/Tools/gencpp/src/gencpp/*.pyc $(VRBRAIN_ROOT)/Tools/genmsg/src/genmsg/*.pyc
+	$(v) /bin/rm -rf $(BUILD_ROOT) $(SKETCHBOOK)/module.mk
 
 vrbrain-archives-clean:
 	$(v) /bin/rm -rf $(VRBRAIN_ROOT)/Archives
