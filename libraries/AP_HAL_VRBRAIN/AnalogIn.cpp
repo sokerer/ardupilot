@@ -47,7 +47,7 @@ static const struct {
 #endif
     { 10, 3.3f/4096 },
     { 11, 3.3f/4096 },
-#elif defined(CONFIG_ARCH_BOARD_VRBRAIN_V51) || defined(CONFIG_ARCH_BOARD_VRBRAIN_V52)
+#elif defined(CONFIG_ARCH_BOARD_VRBRAIN_V51) || defined(CONFIG_ARCH_BOARD_VRBRAIN_V52) || defined(CONFIG_ARCH_BOARD_VRBRAIN_V53)
     { 10, 3.3f/4096 },
     { 11, 3.3f/4096 },
 #if APM_BUILD_TYPE(APM_BUILD_ArduPlane)
