@@ -40,6 +40,8 @@ struct AP_Notify::notify_events_type AP_Notify::events;
     ToneAlarm_PX4 buzzer;
 #elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_VRBRAIN_V52
     ToneAlarm_PX4 buzzer;
+#elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_VRBRAIN_V53
+    ToneAlarm_PX4 buzzer;
 #elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_VRUBRAIN_V51
     ToneAlarm_PX4 buzzer;
 #elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_VRUBRAIN_V52
