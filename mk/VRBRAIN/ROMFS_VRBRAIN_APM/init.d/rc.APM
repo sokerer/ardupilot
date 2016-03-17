@@ -148,9 +148,7 @@ then
     echo "[APM] Detected VRBrain 5.3 board"
     set BOARD VRBRAIN_V53
     set INTERNAL_MPU6000 true
-    set INTERNAL_MAG false
     set LL_I2C_AUX true
-    set LL_PWM_INPUT true
 fi
 if [ -f /bin/VRUBRAIN_V51 ]
 then
