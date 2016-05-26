@@ -1504,3 +1504,16 @@ void DataFlash_Class::Log_Write_RPM(const AP_RPM &rpm_sensor)
     };
     WriteBlock(&pkt, sizeof(pkt));
 }
+
+void DataFlash_Class::Log_Write_Monitoring(const Monitoring &monitor)
+{
+    struct log_Monitoring pkt = {
+        LOG_PACKET_HEADER_INIT(LOG_MONITOR_MSG),
+        time_us     : hal.scheduler->micros64(),
+        monitor1    : monitor.data_value(0),
+		monitor2    : monitor.data_value(1),
+		monitor3    : monitor.data_value(2),
+		monitor4    : monitor.data_value(3)
+    };
+    WriteBlock(&pkt, sizeof(pkt));
+}

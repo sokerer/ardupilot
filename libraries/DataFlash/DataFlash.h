@@ -18,6 +18,7 @@
 #include <AP_Airspeed/AP_Airspeed.h>
 #include <AP_BattMonitor/AP_BattMonitor.h>
 #include <AP_RPM/AP_RPM.h>
+#include <AP_Monitoring/AP_Monitoring.h>
 #include <stdint.h>
 #include "DataFlash_Backend.h"
 
@@ -98,6 +99,7 @@ public:
                                const AP_Mission::Mission_Command &cmd);
     void Log_Write_Origin(uint8_t origin_type, const Location &loc);
     void Log_Write_RPM(const AP_RPM &rpm_sensor);
+    void Log_Write_Monitoring(const Monitoring &monitor);
 
     // This structure provides information on the internal member data of a PID for logging purposes
     struct PID_Info {
@@ -609,6 +611,15 @@ struct PACKED log_RPM {
     float rpm2;
 };
 
+struct PACKED log_Monitoring {
+    LOG_PACKET_HEADER;
+    uint64_t time_us;
+    float monitor1;
+    float monitor2;
+    float monitor3;
+    float monitor4;
+};
+
 /*
 Format characters in the format string for binary log messages
   b   : int8_t
@@ -762,7 +773,9 @@ Format characters in the format string for binary log messages
     { LOG_ORGN_MSG, sizeof(log_ORGN), \
       "ORGN","QBLLe","TimeUS,Type,Lat,Lng,Alt" }, \
     { LOG_RPM_MSG, sizeof(log_RPM), \
-      "RPM",  "Qff", "TimeUS,rpm1,rpm2" }
+      "RPM",  "Qff", "TimeUS,rpm1,rpm2" }, \
+    { LOG_MONITOR_MSG, sizeof(log_Monitoring), \
+      "MONT",  "Qffff", "TimeUS,monitor1,monitor2,monitor3,monitor4" }
 
 #if HAL_CPU_CLASS >= HAL_CPU_CLASS_75
 #define LOG_COMMON_STRUCTURES LOG_BASE_STRUCTURES, LOG_EXTRA_STRUCTURES
@@ -837,7 +850,8 @@ enum LogMessages {
     LOG_IMUDT2_MSG,
     LOG_IMUDT3_MSG,
     LOG_ORGN_MSG,
-    LOG_RPM_MSG
+    LOG_RPM_MSG,
+	LOG_MONITOR_MSG
 };
 
 enum LogOriginType {
