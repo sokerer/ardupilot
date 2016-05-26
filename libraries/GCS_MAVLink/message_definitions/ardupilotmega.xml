@@ -435,6 +435,18 @@
 	    <field name="pointing_c" type="int32_t">yaw(deg*100)</field>
 	  </message>
 
+	  <message name="MONITORING" id="159">
+	    <description>Monitoring reporting</description>
+	    <field type="float" name="data_value_1">data value monitor 1</field>
+	    <field type="float" name="voltage_1">raw voltage if available, zero otherwise</field>
+	    <field type="float" name="data_value_2">data value monitor 2</field>
+	    <field type="float" name="voltage_2">raw voltage if available, zero otherwise</field>
+	    <field type="float" name="data_value_3">data value monitor 3</field>
+	    <field type="float" name="voltage_3">raw voltage if available, zero otherwise</field>
+	    <field type="float" name="data_value_4">data value monitor 4</field>
+	    <field type="float" name="voltage_4">raw voltage if available, zero otherwise</field>
+	  </message>
+
 	  <!-- geo-fence messages -->
 	  <message name="FENCE_POINT" id="160">
 	    <description>A fence point. Used to set a point when from
