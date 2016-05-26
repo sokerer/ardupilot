@@ -150,6 +150,15 @@ then
     set INTERNAL_MPU6000 true
     set LL_I2C_AUX true
 fi
+if [ -f /bin/VRBRAIN_V53PRO ]
+then
+    echo "[APM] Detected VRBrain 5.3 Professional board"
+    set BOARD VRBRAIN_V53PRO
+    set INTERNAL_MPU6000 true
+    set EXTERNAL_EXP true
+    set EXTERNAL_IMU true
+    set LL_I2C_AUX true
+fi
 if [ -f /bin/VRUBRAIN_V51 ]
 then
     echo "[APM] Detected VR Micro Brain 5.1 board"
