@@ -343,7 +343,8 @@ public:
         k_param_fs_ekf_action,
         k_param_rtl_climb_min,
         k_param_rpm_sensor,
-        k_param_autotune_min_d, // 251
+        k_param_autotune_min_d,
+        k_param_monitor, // 252
 
         // 254,255: reserved
     };

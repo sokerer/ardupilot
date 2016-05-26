@@ -245,6 +245,9 @@ void Copter::init_ardupilot()
     init_sonar();
 #endif
 
+    // initialise monitoring
+    monitor.init();
+
     // initialise AP_RPM library
     rpm_sensor.init();
 

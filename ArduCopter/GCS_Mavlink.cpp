@@ -396,6 +396,20 @@ void NOINLINE Copter::send_current_waypoint(mavlink_channel_t chan)
     mavlink_msg_mission_current_send(chan, mission.get_current_nav_index());
 }
 
+void NOINLINE Copter::send_monitoring(mavlink_channel_t chan)
+{
+    mavlink_msg_monitoring_send(
+            chan,
+            (float)monitor.data_value(0) * 0.01f,
+			(float)monitor.voltage_mv(0) * 0.001f,
+            (float)monitor.data_value(1) * 0.01f,
+			(float)monitor.voltage_mv(1) * 0.001f,
+            (float)monitor.data_value(2) * 0.01f,
+			(float)monitor.voltage_mv(2) * 0.001f,
+            (float)monitor.data_value(3) * 0.01f,
+			(float)monitor.voltage_mv(3) * 0.001f);
+}
+
 #if CONFIG_SONAR == ENABLED
 void NOINLINE Copter::send_rangefinder(mavlink_channel_t chan)
 {
@@ -634,6 +648,11 @@ bool GCS_MAVLINK::try_send_message(enum ap_message id)
         CHECK_PAYLOAD_SIZE(RANGEFINDER);
         copter.send_rangefinder(chan);
 #endif
+        break;
+
+    case MSG_MONITORING:
+        CHECK_PAYLOAD_SIZE(MONITORING);
+        copter.send_monitoring(chan);
         break;
 
     case MSG_RPM:
@@ -963,6 +982,7 @@ GCS_MAVLINK::data_stream_send(void)
         send_message(MSG_EKF_STATUS_REPORT);
         send_message(MSG_VIBRATION);
         send_message(MSG_RPM);
+        send_message(MSG_MONITORING);
     }
 }
 
