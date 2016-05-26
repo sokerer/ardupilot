@@ -69,6 +69,15 @@ int16_t Copter::read_sonar(void)
 #endif
 }
 
+// return data value monitoring
+void Copter::monitoring_update(void)
+{
+   	monitor.update();
+    if (should_log(MASK_LOG_RCIN)) {
+        DataFlash.Log_Write_Monitoring(monitor);
+    }
+}
+
 /*
   update RPM sensors
  */

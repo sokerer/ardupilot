@@ -110,6 +110,7 @@
 #include <AP_RPM/AP_RPM.h>
 #include <AC_InputManager/AC_InputManager.h>        // Pilot input handling library
 #include <AC_InputManager/AC_InputManager_Heli.h>   // Heli specific pilot input handling library
+#include <AP_Monitoring/AP_Monitoring.h>     // Monitoring library
 
 // AP_HAL to Arduino compatibility layer
 // Configuration
@@ -179,6 +180,8 @@ private:
     RangeFinder sonar{serial_manager};
     bool sonar_enabled; // enable user switch for sonar
 #endif
+
+    Monitoring monitor{serial_manager};
 
     AP_RPM rpm_sensor;
 
@@ -600,6 +603,7 @@ private:
     void send_vfr_hud(mavlink_channel_t chan);
     void send_current_waypoint(mavlink_channel_t chan);
     void send_rangefinder(mavlink_channel_t chan);
+    void send_monitoring(mavlink_channel_t chan);
     void send_rpm(mavlink_channel_t chan);
     void rpm_update();
     void send_pid_tuning(mavlink_channel_t chan);
@@ -876,6 +880,7 @@ private:
     void read_barometer(void);
     void init_sonar(void);
     int16_t read_sonar(void);
+    void monitoring_update(void);
     void init_compass();
     void init_optflow();
     void update_optical_flow(void);

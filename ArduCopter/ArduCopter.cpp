@@ -132,6 +132,7 @@ const AP_Scheduler::Task Copter::scheduler_tasks[] PROGMEM = {
     { SCHED_TASK(full_rate_logging_loop),1,    100 },
     { SCHED_TASK(perf_update),        4000,     75 },
     { SCHED_TASK(read_receiver_rssi),   40,     75 },
+    { SCHED_TASK(monitoring_update),    40,    200 },
     { SCHED_TASK(rpm_update),           40,    200 },
 #if FRSKY_TELEM_ENABLED == ENABLED
 #if CONFIG_HAL_BOARD == HAL_BOARD_VRBRAIN
