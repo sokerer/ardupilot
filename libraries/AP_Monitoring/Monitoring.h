@@ -65,8 +65,8 @@ public:
     // The Monitoring_State structure is filled in by the backend driver
     struct Monitoring_State {
         uint8_t                instance;    // the instance number of this Monitoring
-        uint16_t               data_value; // value of data monitored
-        uint16_t               voltage_mv;  // voltage in millivolts,
+        float                  data_value; // value of data monitored
+        float                  voltage_mv;  // voltage in millivolts,
                                             // if applicable, otherwise 0
         enum Monitoring_Status status;     // sensor status
         uint8_t                range_valid_count;   // number of consecutive valid readings (maxes out at 10)
@@ -84,8 +84,8 @@ public:
     AP_Float _scaling[MONITORING_MAX_INSTANCES];
     AP_Float _offset[MONITORING_MAX_INSTANCES];
     AP_Int8  _function[MONITORING_MAX_INSTANCES];
-    AP_Int16 _min_data_value[MONITORING_MAX_INSTANCES];
-    AP_Int16 _max_data_value[MONITORING_MAX_INSTANCES];
+    AP_Float _min_data_value[MONITORING_MAX_INSTANCES];
+    AP_Float _max_data_value[MONITORING_MAX_INSTANCES];
 
     static const struct AP_Param::GroupInfo var_info[];
     
@@ -103,31 +103,31 @@ public:
     
 #define _Monitoring_STATE(instance) state[instance]
 
-    uint16_t data_value(uint8_t instance) const {
+    float data_value(uint8_t instance) const {
         return (instance<num_instances? _Monitoring_STATE(instance).data_value : 0);
     }
-    uint16_t data_value() const {
+    float data_value() const {
         return data_value(primary_instance);
     }
 
-    uint16_t voltage_mv(uint8_t instance) const {
+    float voltage_mv(uint8_t instance) const {
         return _Monitoring_STATE(instance).voltage_mv;
     }
-    uint16_t voltage_mv() const {
+    float voltage_mv() const {
         return voltage_mv(primary_instance);
     }
 
-    int16_t max_data_value(uint8_t instance) const {
+    float max_data_value(uint8_t instance) const {
         return _max_data_value[instance];
     }
-    int16_t max_data_value() const {
+    float max_data_value() const {
         return max_data_value(primary_instance);
     }
 
-    int16_t min_data_value(uint8_t instance) const {
+    float min_data_value(uint8_t instance) const {
         return _min_data_value[instance];
     }
-    int16_t min_data_value() const {
+    float min_data_value() const {
         return min_data_value(primary_instance);
     }
 
