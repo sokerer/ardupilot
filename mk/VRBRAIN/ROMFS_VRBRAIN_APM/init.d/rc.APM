@@ -305,7 +305,7 @@ then
     fi
 else
     echo "[APM] HMC5883 External GPS start failed"
-#    sh /etc/init.d/rc.error
+    sh /etc/init.d/rc.error
 fi
 
 if [ $INTERNAL_HMC5883 == true ]
@@ -340,7 +340,7 @@ then
         fi
     else
         echo "[APM] HMC5983 external EXP start failed"
-#       sh /etc/init.d/rc.error
+       sh /etc/init.d/rc.error
     fi
 fi
 
@@ -358,7 +358,7 @@ then
         fi
     else
         echo "[APM] HMC5983 external IMU start failed"
-#        sh /etc/init.d/rc.error
+        sh /etc/init.d/rc.error
     fi
 fi
 
