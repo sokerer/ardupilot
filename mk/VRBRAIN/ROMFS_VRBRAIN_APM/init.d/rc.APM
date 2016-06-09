@@ -55,9 +55,14 @@ echo "[APM] Verifying board"
 set BOARD NO_BRAIN_BOARD
 set INTERNAL_MPU6000 false
 set INTERNAL_MPU9250 false
-set EXTERNAL_EXP false
-set EXTERNAL_IMU false
-set INTERNAL_MAG false
+set INTERNAL_MS5611 false
+set INTERNAL_HMC5883 false
+set EXTERNAL_EXP_MPU6000 false
+set EXTERNAL_EXP_MS5611 false
+set EXTERNAL_EXP_HMC5883 false
+set EXTERNAL_IMU_MPU6000 false
+set EXTERNAL_IMU_MS5611 false
+set EXTERNAL_IMU_HMC5883 false
 set LL_I2C_AUX false
 set LL_PWM_INPUT false
 
@@ -66,21 +71,24 @@ then
     echo "[APM] Detected VRBrain 4.5 board"
     set BOARD VRBRAIN_V45
     set INTERNAL_MPU6000 true
-    set INTERNAL_MAG true
+    set INTERNAL_MS5611 true
+    set INTERNAL_HMC5883 true
 fi
 if [ -f /bin/VRBRAIN_V45P ]
 then
     echo "[APM] Detected VRBrain 4.5 PWM version board"
     set BOARD VRBRAIN_V45P
     set INTERNAL_MPU6000 true
-    set INTERNAL_MAG true
+    set INTERNAL_MS5611 true
+    set INTERNAL_HMC5883 true
 fi
 if [ -f /bin/VRBRAIN_V51 ]
 then
     echo "[APM] Detected VRBrain 5.1 board"
     set BOARD VRBRAIN_V51
     set INTERNAL_MPU6000 true
-    set INTERNAL_MAG true
+    set INTERNAL_MS5611 true
+    set INTERNAL_HMC5883 true
     set LL_PWM_INPUT true
 fi
 if [ -f /bin/VRBRAIN_V51P ]
@@ -88,15 +96,21 @@ then
      echo "[APM] Detected VRBrain 5.1 PWM version board"
      set BOARD VRBRAIN_V51P
     set INTERNAL_MPU6000 true
-    set INTERNAL_MAG true
+    set INTERNAL_MS5611 true
+    set INTERNAL_HMC5883 true
 fi
 if [ -f /bin/VRBRAIN_V51PRO ]
 then
     echo "[APM] Detected VRBrain 5.1 Professional board"
     set BOARD VRBRAIN_V51PRO
     set INTERNAL_MPU6000 true
-    set EXTERNAL_EXP true
-    set EXTERNAL_IMU true
+    set INTERNAL_MS5611 true
+    set EXTERNAL_EXP_MPU6000 true
+    set EXTERNAL_EXP_MS5611 true
+    set EXTERNAL_EXP_HMC5883 true
+    set EXTERNAL_IMU_MPU6000 true
+    set EXTERNAL_IMU_MS5611 true
+    set EXTERNAL_IMU_HMC5883 true
     set LL_PWM_INPUT true
 fi
 if [ -f /bin/VRBRAIN_V51PROP ]
@@ -104,15 +118,21 @@ then
     echo "[APM] Detected VRBrain 5.1 Professional PWM version board"
     set BOARD VRBRAIN_V51PROP
     set INTERNAL_MPU6000 true
-    set EXTERNAL_EXP true
-    set EXTERNAL_IMU true
+    set INTERNAL_MS5611 true
+    set EXTERNAL_EXP_MPU6000 true
+    set EXTERNAL_EXP_MS5611 true
+    set EXTERNAL_EXP_HMC5883 true
+    set EXTERNAL_IMU_MPU6000 true
+    set EXTERNAL_IMU_MS5611 true
+    set EXTERNAL_IMU_HMC5883 true
 fi
 if [ -f /bin/VRBRAIN_V52 ]
 then
     echo "[APM] Detected VRBrain 5.2 board"
     set BOARD VRBRAIN_V52
     set INTERNAL_MPU6000 true
-    set INTERNAL_MAG true
+    set INTERNAL_MS5611 true
+    set INTERNAL_HMC5883 true
     set LL_I2C_AUX true
     set LL_PWM_INPUT true
 fi
@@ -121,7 +141,8 @@ then
     echo "[APM] Detected VRBrain 5.2 PWM version board"
     set BOARD VRBRAIN_V52P
     set INTERNAL_MPU6000 true
-    set INTERNAL_MAG true
+    set INTERNAL_MS5611 true
+    set INTERNAL_HMC5883 true
     set LL_I2C_AUX true
 fi
 if [ -f /bin/VRBRAIN_V52PRO ]
@@ -129,8 +150,13 @@ then
     echo "[APM] Detected VRBrain 5.2 Professional board"
     set BOARD VRBRAIN_V52PRO
     set INTERNAL_MPU6000 true
-    set EXTERNAL_EXP true
-    set EXTERNAL_IMU true
+    set INTERNAL_MS5611 true
+    set EXTERNAL_EXP_MPU6000 true
+    set EXTERNAL_EXP_MS5611 true
+    set EXTERNAL_EXP_HMC5883 true
+    set EXTERNAL_IMU_MPU6000 true
+    set EXTERNAL_IMU_MS5611 true
+    set EXTERNAL_IMU_HMC5883 true
     set LL_I2C_AUX true
     set LL_PWM_INPUT true
 fi
@@ -139,8 +165,13 @@ then
     echo "[APM] Detected VRBrain 5.2 Professional PWM version board"
     set BOARD VRBRAIN_V52PROP
     set INTERNAL_MPU6000 true
-    set EXTERNAL_EXP true
-    set EXTERNAL_IMU true
+    set INTERNAL_MS5611 true
+    set EXTERNAL_EXP_MPU6000 true
+    set EXTERNAL_EXP_MS5611 true
+    set EXTERNAL_EXP_HMC5883 true
+    set EXTERNAL_IMU_MPU6000 true
+    set EXTERNAL_IMU_MS5611 true
+    set EXTERNAL_IMU_HMC5883 true
     set LL_I2C_AUX true
 fi
 if [ -f /bin/VRBRAIN_V53 ]
@@ -148,6 +179,7 @@ then
     echo "[APM] Detected VRBrain 5.3 board"
     set BOARD VRBRAIN_V53
     set INTERNAL_MPU6000 true
+     set INTERNAL_MS5611 true
     set LL_I2C_AUX true
 fi
 if [ -f /bin/VRBRAIN_V53PRO ]
@@ -155,8 +187,11 @@ then
     echo "[APM] Detected VRBrain 5.3 Professional board"
     set BOARD VRBRAIN_V53PRO
     set INTERNAL_MPU6000 true
-    set EXTERNAL_EXP true
-    set EXTERNAL_IMU true
+    set INTERNAL_MS5611 true
+    set EXTERNAL_EXP_MPU6000 true
+    set EXTERNAL_EXP_HMC5883 true
+    set EXTERNAL_IMU_MPU6000 true
+    set EXTERNAL_IMU_HMC5883 true
     set LL_I2C_AUX true
 fi
 if [ -f /bin/VRUBRAIN_V51 ]
@@ -164,25 +199,29 @@ then
     echo "[APM] Detected VR Micro Brain 5.1 board"
     set BOARD VRUBRAIN_V51
     set INTERNAL_MPU6000 true
+    set INTERNAL_MS5611 true
     set LL_PWM_INPUT true
 fi
 if [ -f /bin/VRUBRAIN_V51P ]
 then
     echo "[APM] Detected VR Micro Brain 5.1 PWM version board"
-    set INTERNAL_MPU6000 true
     set BOARD VRUBRAIN_V51P
+    set INTERNAL_MPU6000 true
+    set INTERNAL_MS5611 true
 fi
 if [ -f /bin/VRUBRAIN_V52 ]
 then
     echo "[APM] Detected VR Micro Brain 5.2 board"
-    set INTERNAL_MPU6000 true
     set BOARD VRUBRAIN_V52
+    set INTERNAL_MPU6000 true
+    set INTERNAL_MS5611 true
 fi
 if [ -f /bin/VRCORE_V10 ]
 then
     echo "[APM] Detected VRCore 1.0 board"
     set BOARD VRCORE_V10
     set INTERNAL_MPU9250 true
+    set INTERNAL_MS5611 true
     set LL_I2C_AUX true
     set LL_PWM_INPUT true
 fi
@@ -191,6 +230,7 @@ then
     echo "[APM] Detected VRCore 1.0 PWM version board"
     set BOARD VRCORE_V10P
     set INTERNAL_MPU9250 true
+    set INTERNAL_MS5611 true
     set LL_I2C_AUX true
 fi
 
@@ -218,16 +258,19 @@ fi
 
 echo "[APM] Starting APM sensors"
 
-echo "[APM] Starting MS5611 Internal"
-if ms5611 -I start
+if [ $INTERNAL_MS5611 == true ]
 then
-    echo "[APM] MS5611 onboard started OK"
-else
-    echo "[APM] MS5611 onboard start failed"
-    sh /etc/init.d/rc.error
+    echo "[APM] Starting MS5611 Internal"
+    if ms5611 -I start
+    then
+        echo "[APM] MS5611 onboard started OK"
+    else
+        echo "[APM] MS5611 onboard start failed"
+        sh /etc/init.d/rc.error
+    fi
 fi
 
-if [ $EXTERNAL_EXP == true ]
+if [ $EXTERNAL_EXP_MS5611 == true ]
 then
     echo "[APM] Starting MS5611 External EXP"
     if ms5611 -X start
@@ -238,7 +281,7 @@ then
 #        sh /etc/init.d/rc.error
     fi
 fi
-if [ $EXTERNAL_IMU == true ]
+if [ $EXTERNAL_IMU_MS5611 == true ]
 then
     echo "[APM] Starting MS5611 External IMU"
     if ms5611 -U start
@@ -265,7 +308,7 @@ else
 #    sh /etc/init.d/rc.error
 fi
 
-if [ $INTERNAL_MAG == true ]
+if [ $INTERNAL_HMC5883 == true ]
 then
     echo "[APM] Starting HMC5883 Internal"
     if hmc5883 -I start
@@ -283,7 +326,7 @@ then
     fi
 fi
 
-if [ $EXTERNAL_EXP == true ]
+if [ $EXTERNAL_EXP_HMC5883 == true ]
 then
     echo "[APM] Starting HMC5883 External EXP"
     if hmc5883 -x start
@@ -301,7 +344,7 @@ then
     fi
 fi
 
-if [ $EXTERNAL_IMU == true ]
+if [ $EXTERNAL_IMU_HMC5883 == true ]
 then
     echo "[APM] Starting HMC5883 External IMU"
     if hmc5883 -u start
@@ -343,7 +386,7 @@ then
     fi
 fi
 
-if [ $EXTERNAL_EXP == true ]
+if [ $EXTERNAL_EXP_MPU6000 == true ]
 then
     echo "[APM] Starting MPU6000 External EXP"
     if mpu6000 -X start
@@ -351,11 +394,11 @@ then
         echo "[APM] MPU6000 external EXP started OK"
     else
         echo "[APM] MPU6000 external EXP start failed"
-#        sh /etc/init.d/rc.error
+        sh /etc/init.d/rc.error
     fi
 fi
 
-if [ $EXTERNAL_IMU == true ]
+if [ $EXTERNAL_IMU_MPU6000 == true ]
 then
     echo "[APM] Starting MPU6000 External IMU"
     if mpu6000 -U start
@@ -363,7 +406,7 @@ then
         echo "[APM] MPU6000 external IMU started OK"
     else
         echo "[APM] MPU6000 external IMU start failed"
-#        sh /etc/init.d/rc.error
+        sh /etc/init.d/rc.error
     fi
 fi
 
