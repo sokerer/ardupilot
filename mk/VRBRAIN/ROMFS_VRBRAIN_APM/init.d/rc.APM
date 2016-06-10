@@ -63,6 +63,7 @@ set EXTERNAL_EXP_HMC5883 false
 set EXTERNAL_IMU_MPU6000 false
 set EXTERNAL_IMU_MS5611 false
 set EXTERNAL_IMU_HMC5883 false
+set EXTERNAL_GPS_HMC5883 false
 set LL_I2C_AUX false
 set LL_PWM_INPUT false
 
@@ -73,6 +74,7 @@ then
     set INTERNAL_MPU6000 true
     set INTERNAL_MS5611 true
     set INTERNAL_HMC5883 true
+    set EXTERNAL_GPS_HMC5883 true
 fi
 if [ -f /bin/VRBRAIN_V45P ]
 then
@@ -81,6 +83,7 @@ then
     set INTERNAL_MPU6000 true
     set INTERNAL_MS5611 true
     set INTERNAL_HMC5883 true
+    set EXTERNAL_GPS_HMC5883 true
 fi
 if [ -f /bin/VRBRAIN_V51 ]
 then
@@ -89,6 +92,7 @@ then
     set INTERNAL_MPU6000 true
     set INTERNAL_MS5611 true
     set INTERNAL_HMC5883 true
+    set EXTERNAL_GPS_HMC5883 true
     set LL_PWM_INPUT true
 fi
 if [ -f /bin/VRBRAIN_V51P ]
@@ -98,6 +102,7 @@ then
     set INTERNAL_MPU6000 true
     set INTERNAL_MS5611 true
     set INTERNAL_HMC5883 true
+    set EXTERNAL_GPS_HMC5883 true
 fi
 if [ -f /bin/VRBRAIN_V51PRO ]
 then
@@ -105,6 +110,7 @@ then
     set BOARD VRBRAIN_V51PRO
     set INTERNAL_MPU6000 true
     set INTERNAL_MS5611 true
+    set EXTERNAL_GPS_HMC5883 true
     set EXTERNAL_EXP_MPU6000 true
     set EXTERNAL_EXP_MS5611 true
     set EXTERNAL_EXP_HMC5883 true
@@ -119,6 +125,7 @@ then
     set BOARD VRBRAIN_V51PROP
     set INTERNAL_MPU6000 true
     set INTERNAL_MS5611 true
+    set EXTERNAL_GPS_HMC5883 true
     set EXTERNAL_EXP_MPU6000 true
     set EXTERNAL_EXP_MS5611 true
     set EXTERNAL_EXP_HMC5883 true
@@ -133,6 +140,7 @@ then
     set INTERNAL_MPU6000 true
     set INTERNAL_MS5611 true
     set INTERNAL_HMC5883 true
+    set EXTERNAL_GPS_HMC5883 true
     set LL_I2C_AUX true
     set LL_PWM_INPUT true
 fi
@@ -143,6 +151,7 @@ then
     set INTERNAL_MPU6000 true
     set INTERNAL_MS5611 true
     set INTERNAL_HMC5883 true
+    set EXTERNAL_GPS_HMC5883 true
     set LL_I2C_AUX true
 fi
 if [ -f /bin/VRBRAIN_V52PRO ]
@@ -151,6 +160,7 @@ then
     set BOARD VRBRAIN_V52PRO
     set INTERNAL_MPU6000 true
     set INTERNAL_MS5611 true
+    set EXTERNAL_GPS_HMC5883 true
     set EXTERNAL_EXP_MPU6000 true
     set EXTERNAL_EXP_MS5611 true
     set EXTERNAL_EXP_HMC5883 true
@@ -166,6 +176,7 @@ then
     set BOARD VRBRAIN_V52PROP
     set INTERNAL_MPU6000 true
     set INTERNAL_MS5611 true
+    set EXTERNAL_GPS_HMC5883 true
     set EXTERNAL_EXP_MPU6000 true
     set EXTERNAL_EXP_MS5611 true
     set EXTERNAL_EXP_HMC5883 true
@@ -180,6 +191,7 @@ then
     set BOARD VRBRAIN_V53
     set INTERNAL_MPU6000 true
      set INTERNAL_MS5611 true
+    set EXTERNAL_GPS_HMC5883 true
     set LL_I2C_AUX true
 fi
 if [ -f /bin/VRBRAIN_V53PRO ]
@@ -200,6 +212,7 @@ then
     set BOARD VRUBRAIN_V51
     set INTERNAL_MPU6000 true
     set INTERNAL_MS5611 true
+    set EXTERNAL_GPS_HMC5883 true
     set LL_PWM_INPUT true
 fi
 if [ -f /bin/VRUBRAIN_V51P ]
@@ -208,6 +221,7 @@ then
     set BOARD VRUBRAIN_V51P
     set INTERNAL_MPU6000 true
     set INTERNAL_MS5611 true
+    set EXTERNAL_GPS_HMC5883 true
 fi
 if [ -f /bin/VRUBRAIN_V52 ]
 then
@@ -215,6 +229,7 @@ then
     set BOARD VRUBRAIN_V52
     set INTERNAL_MPU6000 true
     set INTERNAL_MS5611 true
+    set EXTERNAL_GPS_HMC5883 true
 fi
 if [ -f /bin/VRCORE_V10 ]
 then
@@ -222,6 +237,7 @@ then
     set BOARD VRCORE_V10
     set INTERNAL_MPU9250 true
     set INTERNAL_MS5611 true
+    set EXTERNAL_GPS_HMC5883 true
     set LL_I2C_AUX true
     set LL_PWM_INPUT true
 fi
@@ -231,6 +247,7 @@ then
     set BOARD VRCORE_V10P
     set INTERNAL_MPU9250 true
     set INTERNAL_MS5611 true
+    set EXTERNAL_GPS_HMC5883 true
     set LL_I2C_AUX true
 fi
 
@@ -293,19 +310,22 @@ then
     fi
 fi
 
-echo "[APM] Starting HMC5883 External GPS"
-if hmc5883 -X start
+if [ $EXTERNAL_GPS_HMC5883 == true ]
 then
-    echo "[APM] HMC5883 External GPS started OK"
-    if hmc5883 -X calibrate
+    echo "[APM] Starting HMC5883 External GPS"
+    if hmc5883 -X start
     then
-      echo "[APM] HMC5883 External GPS calibrate OK"
-    else 
-      echo "[APM] HMC5883 External GPS calibrate failed"
+        echo "[APM] HMC5883 External GPS started OK"
+        if hmc5883 -X calibrate
+        then
+          echo "[APM] HMC5883 External GPS calibrate OK"
+        else 
+          echo "[APM] HMC5883 External GPS calibrate failed"
+        fi
+    else
+        echo "[APM] HMC5883 External GPS start failed"
+        sh /etc/init.d/rc.error
     fi
-else
-    echo "[APM] HMC5883 External GPS start failed"
-    sh /etc/init.d/rc.error
 fi
 
 if [ $INTERNAL_HMC5883 == true ]
