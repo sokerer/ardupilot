@@ -45,7 +45,7 @@ MODULES		+= drivers/stm32/tone_alarm
 
 
 
-
+MODULES		+= drivers/pwm_input
 
 
 MODULES		+= drivers/boards/vrbrain-v53Pro
