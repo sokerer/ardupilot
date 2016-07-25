@@ -42,6 +42,11 @@ ROMFS_ROOT	 = $(SKETCHBOOK)/mk/VRBRAIN/ROMFS_VRBRAIN_APM
 
 
 
+
+
+MODULES		+= drivers/pwm_input
+
+
 MODULES		+= drivers/boards/vrbrain-v53Pro
 
 
