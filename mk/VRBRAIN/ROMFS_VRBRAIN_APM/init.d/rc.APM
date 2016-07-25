@@ -192,7 +192,6 @@ then
     set INTERNAL_MPU6000 true
      set INTERNAL_MS5611 true
     set EXTERNAL_GPS_HMC5883 true
-    set LL_I2C_AUX true
 fi
 if [ -f /bin/VRBRAIN_V53PRO ]
 then
@@ -204,7 +203,6 @@ then
     set EXTERNAL_EXP_HMC5883 true
     set EXTERNAL_IMU_MPU6000 true
     set EXTERNAL_IMU_HMC5883 true
-    set LL_I2C_AUX true
 fi
 if [ -f /bin/VRUBRAIN_V51 ]
 then
@@ -441,30 +439,29 @@ then
     echo "[APM] Found MEAS airspeed sensor"
 fi
 
-# optional Range Finder sensor
-if ll40ls -X start
-then
-    echo "[APM] Found external ll40ls sensor"
-fi
-
 if [ $LL_I2C_AUX == true ]
 then
+    if ll40ls -X start
+    then
+        echo "[APM] Found external ll40ls sensor"
+    fi
+
     if ll40ls -I start
     then
         echo "[APM] Found internal ll40ls sensor"
     fi
 fi
 
+if pwm_input start
+then
+    echo "[APM] started pwm_input driver"
+fi
+
 if [ $LL_PWM_INPUT == true ]
 then
-    # optional PWM input driver
-    if pwm_input start
+    if ll40ls start pwm
     then
-        echo "[APM] started pwm_input driver"
-        if ll40ls start pwm
-        then
-            echo "[APM] Found ll40ls sensor PWM"
-        fi
+        echo "[APM] Found ll40ls sensor PWM"
     fi
 fi
 
